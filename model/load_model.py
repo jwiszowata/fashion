@@ -15,7 +15,7 @@ import wandb
 import os
 
 # Load test data
-test_images, test_labels = mnist_reader.load_mnist('../data/fashion', kind='t10k')
+_, (test_images, test_labels) = tf.keras.datasets.fashion_mnist.load_data()
 test_images = test_images / 255.
 test_images.shape = (10000, 28, 28, 1)
 
@@ -24,11 +24,11 @@ model = create_model()
 
 # Evaluate the model
 loss_untrained, acc_untrained = model.evaluate(test_images, test_labels, verbose=2)
-print("Untrained model, accuracy: {:5.2f}%".format(100*acc))
+print("Untrained model, accuracy: {:5.2f}%".format(100 * acc_untrained))
 
 # Loads the weights
 model.load_weights(checkpoint_path)
 
 # Re-evaluate the model
 loss, acc = model.evaluate(test_images, test_labels, verbose=2)
-print("Restored model, accuracy: {:5.2f}%".format(100*acc))
+print("Restored model, accuracy: {:5.2f}%".format(100 * acc))
