@@ -124,7 +124,7 @@ terminado==0.8.3
 testpath==0.4.4
 tf-estimator-nightly==1.14.0.dev2019060501
 torch==1.2.0
-torchvision==0.4.0+cu92
+torchvision==0.4.0
 torchviz==0.0.1
 tornado==6.0.3
 tqdm==4.41.1
