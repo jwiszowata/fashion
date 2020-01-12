@@ -27,6 +27,7 @@ loss_untrained, acc_untrained = model.evaluate(test_images, test_labels, verbose
 print("Untrained model, accuracy: {:5.2f}%".format(100 * acc_untrained))
 
 # Loads the weights
+checkpoint_path = "training_1/cp.ckpt"
 model.load_weights(checkpoint_path)
 
 # Re-evaluate the model
