@@ -1,0 +1,75 @@
+>>> Hyperas search space:
+
+def get_space():
+    return {
+        'f': hp.choice('f', [[16, 16, 32, 32, 32], [32, 32, 64, 64, 64], [16, 32, 32, 64, 64]]),
+        'f_1': hp.choice('f_1', [(3, 3), (5, 5)]),
+        'f_2': hp.choice('f_2', [(3, 3), (5, 5)]),
+        'Dropout': hp.uniform('Dropout', 0, 1),
+        'Dropout_1': hp.choice('Dropout_1', [(3, 3), (5, 5)]),
+        'Dropout_2': hp.choice('Dropout_2', [(3, 3), (5, 5)]),
+        'Dropout_3': hp.choice('Dropout_3', [(3, 3), (5, 5)]),
+        'Dropout_4': hp.uniform('Dropout_4', 0, 1),
+        'Dense': hp.choice('Dense', [64, 84, 128]),
+        'Dropout_5': hp.uniform('Dropout_5', 0, 1),
+        'batch_size': hp.choice('batch_size', [None, 64, 128]),
+    }
+
+>>> Data
+  1: 
+  2: (train_images, train_labels), _ = tf.keras.datasets.fashion_mnist.load_data()
+  3: train_images = train_images / 255.
+  4: 
+  5: 
+  6: train_images.shape = (60000, 28, 28, 1)
+  7: X_train, X_test, Y_train, Y_test = train_test_split(train_images, train_labels, shuffle=True, test_size=0.1, random_state=8465)
+  8: 
+  9: 
+ 10: 
+>>> Resulting replaced keras model:
+
+   1: def keras_fmin_fnct(space):
+   2: 
+   3: 	model = models.Sequential()
+   4: 	f = space['f']
+   5: 	model.add(layers.Conv2D(f[0], space['f_1'], padding='same', activation='relu', input_shape=(28, 28, 1)))
+   6: 	model.add(layers.Conv2D(f[1], space['f_2'], padding='same', activation='relu'))
+   7: 	model.add(layers.MaxPooling2D((2, 2)))
+   8: 	model.add(layers.Dropout(space['Dropout'], seed=7382))
+   9: 	model.add(layers.Conv2D(f[2], space['Dropout_1'], padding='same', activation='relu'))
+  10: 	model.add(layers.Conv2D(f[3], space['Dropout_2'], padding='same', activation='relu'))
+  11: 	model.add(layers.Conv2D(f[4], space['Dropout_3'], padding='same', activation='relu'))
+  12: 	model.add(layers.BatchNormalization())
+  13: 	model.add(layers.MaxPooling2D((2, 2)))
+  14: 	model.add(layers.Dropout(space['Dropout_4'], seed=7382))
+  15: 
+  16: 	model.add(layers.Flatten())
+  17: 	model.add(layers.Dense(space['Dense'], activation='relu'))
+  18: 	model.add(layers.BatchNormalization())
+  19: 	model.add(layers.Dropout(space['Dropout_5']))
+  20: 	model.add(layers.Dense(10, activation='softmax'))
+  21: 
+  22: 	model.compile(optimizer='adam',
+  23: 				  loss='sparse_categorical_crossentropy',
+  24: 				  metrics=['accuracy'])
+  25: 
+  26: 	model.fit(X_train, Y_train,
+  27: 			  batch_size=space['batch_size'],
+  28: 			  epochs=10,
+  29: 			  verbose=2,
+  30: 			  validation_data=(X_test, Y_test),
+  31: 			  callbacks=[WandbCallback()])
+  32: 
+  33: 	score, acc = model.evaluate(X_test, Y_test, verbose=0)
+  34: 	print('Test accuracy:', acc)
+  35: 	return {'loss': -acc, 'status': STATUS_OK, 'model': model}
+  36:
+
+100%|████████████████████████| 30/30 [14:38:53<00:00, 1757.77s/it, best loss: -0.9331666827201843]
+
+>>> Evalutation of best performing model:
+
+6000/6000 [==============================] - 5s 793us/sample - loss: 0.1956 - acc: 0.9332
+[0.19558702810605366, 0.9331667]
+
+{'Dense': 2, 'Dropout': 0.06453230146474814, 'Dropout_1': 0, 'Dropout_2': 0, 'Dropout_3': 0, 'Dropout_4': 0.24188837520127948, 'Dropout_5': 0.5569212247466263, 'batch_size': 1, 'f': 1, 'f_1': 0, 'f_2': 1}
