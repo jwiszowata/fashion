@@ -5,7 +5,8 @@ from numpy.random import seed
 seed(8465)
 import tensorflow as tf
 tf.random.set_seed(8465)
-
+from keras.backend import manual_variable_initialization 
+manual_variable_initialization(True)
 from tensorflow import keras
 from tensorflow.keras import datasets, layers, models
 from utils import mnist_reader
@@ -27,7 +28,7 @@ loss_untrained, acc_untrained = model.evaluate(test_images, test_labels, verbose
 print("Untrained model, accuracy: {:5.2f}%".format(100 * acc_untrained))
 
 # Loads the weights
-checkpoint_path = "training_1/cp.ckpt"
+checkpoint_path = "../training_1/cp.ckpt"
 model.load_weights(checkpoint_path)
 
 # Re-evaluate the model

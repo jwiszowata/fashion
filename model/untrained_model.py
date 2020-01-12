@@ -4,6 +4,8 @@ from numpy.random import seed
 seed(8465)
 import tensorflow as tf
 tf.random.set_seed(8465)
+from keras.backend import manual_variable_initialization 
+manual_variable_initialization(True)
 import os
 from tensorflow import keras
 from tensorflow.keras import datasets, layers, models
