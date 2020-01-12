@@ -1,0 +1,5 @@
+/data
+/wandb
+/test_and_tries
+*.ipynb_checkpoints
+__pycache__
