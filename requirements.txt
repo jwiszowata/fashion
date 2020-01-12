@@ -29,7 +29,6 @@ gast==0.3.2
 gitdb2==2.0.6
 GitPython==3.0.5
 google-pasta==0.1.8
-gql==0.2.0
 grandalf==0.6
 graphics.py==5.0.1.post1
 graphql-core==2.2.1
