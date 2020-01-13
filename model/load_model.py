@@ -10,9 +10,7 @@ manual_variable_initialization(True)
 from tensorflow import keras
 from tensorflow.keras import datasets, layers, models
 from utils import mnist_reader
-from wandb.keras import WandbCallback
 from untrained_model import create_model
-import wandb
 import os
 
 # Load test data
