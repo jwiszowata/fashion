@@ -13,12 +13,12 @@ manual_variable_initialization(True)
 from tensorflow import keras
 from tensorflow.keras import datasets, layers, models
 import random
-
+import numpy as np
 
 
 def index(request):
 	# Load test data
-	test_images = np.array([random.randint(0, 2)])
+	test_images = np.array([random.randint(0, 1) for i in range(28*28*2)])
 	test_labels = ['Dress', 'Sandal']
 	test_images = test_images / 255.
 	test_images.shape = (2, 28, 28, 1)
