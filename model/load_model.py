@@ -21,7 +21,9 @@ test_images = test_images / 255.
 test_images.shape = (10000, 28, 28, 1)
 
 # Create a basic model instance
-model = create_model()
+# model = create_model()
+# Recreate the exact same model purely from the file
+model = keras.models.load_model('training/model.h5')
 
 # Evaluate the model
 loss_untrained, acc_untrained = model.evaluate(test_images, test_labels, verbose=2)

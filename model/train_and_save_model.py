@@ -43,3 +43,5 @@ model.fit(train_images,
           epochs=untrained_model.EPOCHS,
           validation_data=(test_images, test_labels),
           callbacks=[cp_callback, WandbCallback()])  # Pass callback to training
+
+model.save('training/model.h5')
