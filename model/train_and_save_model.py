@@ -15,8 +15,7 @@ import untrained_model
 wandb.init(config={}, sync_tensorboard=True, tags=['deploy', 'training'])
 
 # Load data
-train_images, train_labels = mnist_reader.load_mnist('../data/fashion', kind='train')
-test_images, test_labels = mnist_reader.load_mnist('../data/fashion', kind='t10k')
+(train_images, train_labels), (test_images, test_labels) = tf.keras.datasets.fashion_mnist.load_data()
 
 train_images = train_images / 255.
 test_images = test_images / 255.
