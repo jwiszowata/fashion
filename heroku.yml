@@ -5,5 +5,3 @@ run:
   web: cd api/mysite && gunicorn mysite.wsgi --bind 0.0.0.0:$PORT
 release:
   image: web
-  command:
-    - python manage.py collectstatic --noinput
