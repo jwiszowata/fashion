@@ -6,91 +6,101 @@ from sklearn.model_selection import train_test_split
 import wandb
 from wandb.keras import WandbCallback
 
-def model_architecture_le_net():
-	model = models.Sequential()
-	model.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=(28, 28, 1)))
-	model.add(layers.MaxPooling2D((2, 2)))
-	model.add(layers.Conv2D(32, (3, 3), activation='relu'))
-	model.add(layers.MaxPooling2D((2, 2)))
-	model.add(layers.Conv2D(64, (3, 3), activation='relu'))
-	model.add(layers.MaxPooling2D((2, 2)))
+def model_arch_le_net():
+    model = models.Sequential()
+    model.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=(28, 28, 1)))
+    model.add(layers.MaxPooling2D((2, 2)))
+    model.add(layers.Conv2D(32, (3, 3), activation='relu'))
+    model.add(layers.MaxPooling2D((2, 2)))
+    model.add(layers.Conv2D(64, (3, 3), activation='relu'))
+    model.add(layers.MaxPooling2D((2, 2)))
 
-	model.add(layers.Flatten())
-	model.add(layers.Dense(120, activation='relu'))
-	model.add(layers.Dense(84, activation='relu'))
-	model.add(layers.Dense(10, activation='softmax'))
+    model.add(layers.Flatten())
+    model.add(layers.Dense(120, activation='relu'))
+    model.add(layers.Dense(84, activation='relu'))
+    model.add(layers.Dense(10, activation='softmax'))
 
-	return model
-
-
-def model_architecture_vvg_16():
-	model = models.Sequential()
-	model.add(layers.Conv2D(16, (3, 3), activation='relu', input_shape=(28, 28, 1)))
-	model.add(layers.Conv2D(16, (3, 3), activation='relu'))
-	model.add(layers.MaxPooling2D((2, 2)))
-	model.add(layers.Conv2D(32, (3, 3), activation='relu'))
-	model.add(layers.Conv2D(32, (3, 3), activation='relu'))
-	model.add(layers.Conv2D(64, (3, 3), activation='relu'))
-	model.add(layers.MaxPooling2D((2, 2)))
-
-	model.add(layers.Flatten())
-	model.add(layers.Dense(64, activation='relu'))
-	model.add(layers.Dense(10, activation='softmax'))
-
-	return model
-
-def model_architecture_alex_net():
-	model = models.Sequential()
-	model.add(layers.Conv2D(16, (3, 3), activation='relu', input_shape=(28, 28, 1)))
-	model.add(layers.MaxPooling2D((2, 2)))
-	model.add(layers.Conv2D(32, (3, 3), activation='relu'))
-	model.add(layers.MaxPooling2D((2, 2)))
-	model.add(layers.Conv2D(64, (3, 3), activation='relu'))
-	model.add(layers.Conv2D(64, (3, 3), padding='same', activation='relu'))
-	model.add(layers.Conv2D(64, (3, 3), padding='same', activation='relu'))
-	model.add(layers.MaxPooling2D((2, 2)))
-
-	model.add(layers.Flatten())
-	model.add(layers.Dense(64, activation='relu'))
-	model.add(layers.Dense(10, activation='softmax'))
-
-	return model
-
-def model_architecture_simple_net():
-	model = models.Sequential()
-	model.add(layers.Conv2D(16, (3, 3), activation='relu', input_shape=(28, 28, 1)))
-	model.add(layers.MaxPooling2D((2, 2)))
-	model.add(layers.Conv2D(64, (3, 3), activation='relu'))
-	model.add(layers.MaxPooling2D((2, 2)))
-	model.add(layers.Conv2D(64, (3, 3), activation='relu'))
-
-	model.add(layers.Flatten())
-	model.add(layers.Dense(64, activation='relu'))
-	model.add(layers.Dense(10, activation='softmax'))
-
-	return model
+    return model
 
 
-train_images, train_labels = mnist_reader.load_mnist('../data/fashion', kind='train')
-train_images = train_images / 255.
+def model_arch_vvg_16():
+    model = models.Sequential()
+    model.add(layers.Conv2D(16, (3, 3), activation='relu', input_shape=(28, 28, 1)))
+    model.add(layers.Conv2D(16, (3, 3), activation='relu'))
+    model.add(layers.MaxPooling2D((2, 2)))
+    model.add(layers.Conv2D(32, (3, 3), activation='relu'))
+    model.add(layers.Conv2D(32, (3, 3), activation='relu'))
+    model.add(layers.Conv2D(64, (3, 3), activation='relu'))
+    model.add(layers.MaxPooling2D((2, 2)))
 
+    model.add(layers.Flatten())
+    model.add(layers.Dense(64, activation='relu'))
+    model.add(layers.Dense(10, activation='softmax'))
 
-train_images.shape = (60000, 28, 28, 1)
-train_images, val_images, train_labels, val_labels = train_test_split(train_images, train_labels, shuffle=True, test_size=0.1, random_state=8465)
+    return model
 
-wandb.init(config=tf.flags.FLAGS, sync_tensorboard=True, tags=['test', 'architecture'], group='architecture')
+def model_arch_alex_net():
+    model = models.Sequential()
+    model.add(layers.Conv2D(16, (3, 3), activation='relu', input_shape=(28, 28, 1)))
+    model.add(layers.MaxPooling2D((2, 2)))
+    model.add(layers.Conv2D(32, (3, 3), activation='relu'))
+    model.add(layers.MaxPooling2D((2, 2)))
+    model.add(layers.Conv2D(64, (3, 3), activation='relu'))
+    model.add(layers.Conv2D(64, (3, 3), padding='same', activation='relu'))
+    model.add(layers.Conv2D(64, (3, 3), padding='same', activation='relu'))
+    model.add(layers.MaxPooling2D((2, 2)))
 
-model = # < put right model function here > 
+    model.add(layers.Flatten())
+    model.add(layers.Dense(64, activation='relu'))
+    model.add(layers.Dense(10, activation='softmax'))
 
-model.summary()
+    return model
 
-model.compile(optimizer='adam',
-				  loss='sparse_categorical_crossentropy',
-				  metrics=['accuracy'])
+def model_arch_simple_net():
+    model = models.Sequential()
+    model.add(layers.Conv2D(16, (3, 3), activation='relu', input_shape=(28, 28, 1)))
+    model.add(layers.MaxPooling2D((2, 2)))
+    model.add(layers.Conv2D(64, (3, 3), activation='relu'))
+    model.add(layers.MaxPooling2D((2, 2)))
+    model.add(layers.Conv2D(64, (3, 3), activation='relu'))
 
-model.fit(train_images, train_labels, epochs=10, 
-					validation_data=(val_images, val_labels),
-					callbacks=[WandbCallback()])
+    model.add(layers.Flatten())
+    model.add(layers.Dense(64, activation='relu'))
+    model.add(layers.Dense(10, activation='softmax'))
 
-validation_loss, validation_acc = model.evaluate(val_images, val_labels)
-wandb.log({'validation_acc': validation_acc, 'validation_loss': validation_loss, 'model': "simple-net"})
+    return model
+
+# Load data
+(x_training, y_training), _ = tf.keras.datasets.fashion_mnist.load_data()
+x_training = x_training / 255.
+
+# Reshape data
+x_training.shape = (60000, 28, 28, 1)
+
+wandb.init(sync_tensorboard=True, tags=['test', 'architecture'], group='architecture')
+
+# Extraction of validation set from training set
+x_train, x_val, y_train, y_val = train_test_split(x_training, y_training, shuffle=True, test_size=0.1, random_state=8465)
+
+# Designed models
+model_archs = [{'name': 'simple-net', 'model': model_arch_simple_net()}, 
+               {'name': 'le-net', 'model': model_arch_le_net()},
+               {'name': 'alexnet', 'model': model_arch_alex_net()}, 
+               {'name': 'vvg16', 'model': model_arch_vvg_16()}]
+
+for m in model_archs:
+    print(m['name'])
+    m['model'].summary()
+
+    print(m['name'])
+    print('-------------------------------------------------------------')
+
+    m['model'].compile(optimizer='adam',
+                            loss='sparse_categorical_crossentropy',
+                         metrics=['accuracy'])
+
+    print(x_train.shape, x_val.shape, y_train.shape, y_val.shape)
+    m['model'].fit(x_train, y_train, epochs=10, validation_data=(x_val, y_val), verbose=2, callbacks=[WandbCallback()])
+    m['model'].evaluate(x_train, y_train)
+    validation_loss, validation_acc = m['model'].evaluate(x_val, y_val)
+    wandb.log({'validation_acc': validation_acc, 'validation_loss': validation_loss, 'model': m['name']})
