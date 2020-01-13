@@ -12,14 +12,16 @@ from keras.backend import manual_variable_initialization
 manual_variable_initialization(True)
 from tensorflow import keras
 from tensorflow.keras import datasets, layers, models
+import random
 
 
 
 def index(request):
 	# Load test data
-	_, (test_images, test_labels) = tf.keras.datasets.fashion_mnist.load_data()
+	test_images = np.array([random.randint(0, 2)])
+	test_labels = ['Dress', 'Sandal']
 	test_images = test_images / 255.
-	test_images.shape = (10000, 28, 28, 1)
+	test_images.shape = (2, 28, 28, 1)
 	# Recreate the exact same model purely from the file
 	model = keras.models.load_model('../../training/model.h5')
 
