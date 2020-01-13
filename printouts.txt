@@ -9,10 +9,10 @@ Logged in as wiszowata.joanna@gmail.com
 Creating app... done, ⬢ pure-headland-03009
 https://pure-headland-03009.herokuapp.com/ | https://git.heroku.com/pure-headland-03009.git
 
-$ heroku config:set SECRET_KEY=5T4hBvN9IgPrEBntyYx1fRfl75k1JtozVytQiOP3QltC1eGnpd -a pure-headland-03009
+$ heroku config:set SECRET_KEY=<SECRET_KEY> -a pure-headland-03009
 
 Setting SECRET_KEY and restarting ⬢ pure-headland-03009... done, v3
-SECRET_KEY: 5T4hBvN9IgPrEBntyYx1fRfl75k1JtozVytQiOP3QltC1eGnpd
+SECRET_KEY: <SECRET_KEY>
 
 $ heroku stack:set container -a pure-headland-03009
 
