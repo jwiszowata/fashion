@@ -19,8 +19,9 @@ import numpy as np
 def index(request):
 	# Load test data
 	test_images = np.array([random.randint(0, 1) for i in range(28*28*2)])
-	test_labels = ['Dress', 'Sandal']
+	test_labels = [3, 5]
 	test_images = test_images / 255.
+	print(test_images)
 	test_images.shape = (2, 28, 28, 1)
 	# Recreate the exact same model purely from the file
 	model = keras.models.load_model('../../training/model.h5')
