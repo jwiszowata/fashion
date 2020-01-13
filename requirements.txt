@@ -1,3 +1,6 @@
 Keras==2.3.1
 numpy==1.17.4
 tensorflow==2.0.0b1
+django==3.0.2
+gunicorn==19.7.1
+dj-database-url==0.5.0

@@ -19,17 +19,14 @@ test_images = test_images / 255.
 test_images.shape = (10000, 28, 28, 1)
 
 # Create a basic model instance
-# model = create_model()
-# Recreate the exact same model purely from the file
-model = keras.models.load_model('training/model.h5')
+model = create_model()
 
 # Evaluate the model
 loss_untrained, acc_untrained = model.evaluate(test_images, test_labels, verbose=2)
 print("Untrained model, accuracy: {:5.2f}%".format(100 * acc_untrained))
 
-# Loads the weights
-checkpoint_path = "../training_1/cp.ckpt"
-model.load_weights(checkpoint_path)
+# Recreate the exact same model purely from the file
+model = keras.models.load_model('training/model.h5')
 
 # Re-evaluate the model
 loss, acc = model.evaluate(test_images, test_labels, verbose=2)

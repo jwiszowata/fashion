@@ -10,7 +10,8 @@ import os
 from tensorflow import keras
 from tensorflow.keras import datasets, layers, models
 
-EPOCHS = 12
+EPOCHS = 9
+BATCH_SIZE = 64
 
 def create_model():
 	model = models.Sequential()

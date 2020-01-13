@@ -3,3 +3,7 @@
 /test_and_tries
 *.ipynb_checkpoints
 __pycache__
+*.pyc
+env/
+db.sqlite3
+/training_1

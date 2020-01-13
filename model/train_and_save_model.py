@@ -40,6 +40,7 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
 model.fit(train_images, 
           train_labels,  
           epochs=untrained_model.EPOCHS,
+		  batch_size=untrained_model.BATCH_SIZE,
           validation_data=(test_images, test_labels),
           callbacks=[cp_callback, WandbCallback()])  # Pass callback to training
 
