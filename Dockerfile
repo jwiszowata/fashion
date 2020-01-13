@@ -25,6 +25,4 @@ RUN apt-get update \
 RUN adduser --disabled-password myuser
 USER myuser
 
-# run gunicorn
-CMD cd api/mysite && gunicorn mysite.wsgi --bind 0.0.0.0:$PORT
 
